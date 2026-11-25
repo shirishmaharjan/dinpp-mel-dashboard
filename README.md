@@ -1,5 +1,3 @@
-# dinpp-mel-dashboard
-
 # 🌿 DINPP (Darwin Extra) — Live Smap MEL & Donor Dashboard
 
 An interactive Monitoring, Evaluation, and Learning (MEL) web dashboard built with **Python** and **Streamlit**, connected directly to the **Smap Server REST API** (`https://sg.smap.com.au`).
