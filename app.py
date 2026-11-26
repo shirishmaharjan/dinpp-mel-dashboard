@@ -21,6 +21,144 @@ MEL_PALETTE = [
     "#475569",
 ]
 
+# ==============================================================================
+# DINPP DISTRICT & MUNICIPALITY CODE LOOKUP MAPS
+# ==============================================================================
+DISTRICT_CODE_MAP = {
+    "403": "Mustang",
+    "405": "Kaski",
+    "406": "Lamjung",
+    "409": "Syangja",
+    "504": "Gulmi",
+    "506": "Palpa",
+    "509": "Kapilvastu",
+    "510": "Dang",
+    "604": "Jumla",
+    "606": "Dailekh",
+    "607": "Jajarkot",
+    "610": "Surkhet",
+}
+
+MUNICIPALITY_CODE_MAP = {
+    # 403 Mustang
+    "40301": "Lo Gheghar Damodar Kunda Rural Municipality",
+    "40302": "Gharpajhong Rural Municipality",
+    "40303": "Bahragung Muktikshetra Rural Municipality",
+    "40304": "Lomanthang Rural Municipality",
+    "40305": "Thasang Rural Municipality",
+    # 405 Kaski
+    "40501": "Madi Rural Municipality",
+    "40502": "Machhapuchchhre Rural Municipality",
+    "40503": "Annapurna Rural Municipality",
+    "40504": "Pokhara Metropolitan City",
+    "40505": "Rupa Rural Municipality",
+    # 406 Lamjung
+    "40601": "Dordi Rural Municipality",
+    "40602": "Marshyangdi Rural Municipality",
+    "40603": "Kwhola Sothar Rural Municipality",
+    "40604": "Madhya Nepal Municipality",
+    "40605": "Bensi Shahar Municipality",
+    "40606": "Sundarbazar Municipality",
+    "40607": "Rainas Municipality",
+    "40608": "Dudhapokhari Rural Municipality",
+    # 409 Syangja
+    "40901": "Putalibazar Municipality",
+    "40902": "Phedikhola Rural Municipality",
+    "40903": "Aandhikhola Rural Municipality",
+    "40904": "Arjun Choupari Rural Municipality",
+    "40905": "Bhirkot Municipality",
+    "40906": "Biruwa Rural Municipality",
+    "40907": "Harinas Rural Municipality",
+    "40908": "Chapakot Municipality",
+    "40909": "Walling Municipality",
+    "40910": "Galyang Municipality",
+    "40911": "Kaligandaki Rural Municipality",
+    # 504 Gulmi
+    "50402": "Satyawoti Rural Municipality",
+    "50403": "Chandrakot Rural Municipality",
+    "50404": "Musikot Municipality",
+    "50405": "Isma Rural Municipality",
+    "50406": "Malika Rural Municipality",
+    "50407": "Madane Rural Municipality",
+    "50408": "Dhurkot Rural Municipality",
+    "50409": "Resunga Municipality",
+    "50410": "Gulmi Durbar Rural Municipality",
+    "50411": "Chhatrakot Rural Municipality",
+    "50412": "Ruru Rural Municipality",
+    # 506 Palpa
+    "50601": "Rampur Municipality",
+    "50602": "Purbakhola Rural Municipality",
+    "50603": "Rambha Rural Municipality",
+    "50604": "Baganaskali Rural Municipality",
+    "50605": "Tansen Municipality",
+    "50606": "Ribdikot Rural Municipality",
+    "50607": "Rainadevi Chhahara Rural Municipality",
+    "50608": "Tinau Rural Municipality",
+    "50609": "Mathagadhi Rural Municipality",
+    "50610": "Nisdi Rural Municipality",
+    # 509 Kapilvastu
+    "50901": "Banganga Municipality",
+    "50902": "Buddhabhumi Municipality",
+    "50903": "Shivaraj Municipality",
+    "50904": "Bijayanagar Rural Municipality",
+    "50905": "Krishnanagar Municipality",
+    "50906": "Maharajganj Municipality",
+    "50907": "Kapilbastu Municipality",
+    "50908": "Yasodhara Rural Municipality",
+    "50909": "Mayadevi Rural Municipality",
+    "50910": "Shuddhodhan Rural Municipality",
+    # 510 Dang
+    "51001": "Bangalachuli Rural Municipality",
+    "51002": "Ghorahi Sub-Metropolitan City",
+    "51003": "Tulsipur Sub-Metropolitan City",
+    "51004": "Shantinagar Rural Municipality",
+    "51005": "Babai Rural Municipality",
+    "51006": "Dangisharan Rural Municipality",
+    "51007": "Lamahi Municipality",
+    "51008": "Rapti Rural Municipality",
+    "51009": "Gadhawa Rural Municipality",
+    "51010": "Rajpur Rural Municipality",
+    # 604 Jumla
+    "60401": "Patarasi Rural Municipality",
+    "60402": "Kanaka Sundari Rural Municipality",
+    "60403": "Sinja Rural Municipality",
+    "60404": "Chandannath Municipality",
+    "60405": "Guthichaur Rural Municipality",
+    "60406": "Tatopani Rural Municipality",
+    "60407": "Tila Rural Municipality",
+    "60408": "Hima Rural Municipality",
+    # 606 Dailekh
+    "60601": "Naumule Rural Municipality",
+    "60602": "Mahabu Rural Municipality",
+    "60603": "Bhairabi Rural Municipality",
+    "60604": "Thantikandh Rural Municipality",
+    "60605": "Aathbis Municipality",
+    "60606": "Chamunda Bindrasaini Municipality",
+    "60607": "Dullu Municipality",
+    "60608": "Narayan Municipality",
+    "60609": "Bhagawatimai Rural Municipality",
+    "60610": "Dungeshwor Rural Municipality",
+    "60611": "Gurans Rural Municipality",
+    # 607 Jajarkot
+    "60701": "Barekot Rural Municipality",
+    "60702": "Kuse Rural Municipality",
+    "60703": "Junichande Rural Municipality",
+    "60704": "Chhedagad Municipality",
+    "60705": "Shivalaya Rural Municipality",
+    "60706": "Bheri Municipality",
+    "60707": "Nalagad Municipality",
+    # 610 Surkhet
+    "61001": "Simta Rural Municipality",
+    "61002": "Chingad Rural Municipality",
+    "61003": "Lekabeshi Municipality",
+    "61004": "Gurbhakot Municipality",
+    "61005": "Bheriganga Municipality",
+    "61006": "Birendranagar Municipality",
+    "61007": "Barahatal Rural Municipality",
+    "61008": "Panchapuri Municipality",
+    "61009": "Chaukune Rural Municipality",
+}
+
 st.set_page_config(
     page_title="DINPP | Live MEL & Donor Dashboard",
     page_icon="🌿",
@@ -42,14 +180,14 @@ st.markdown(
             background-color: #FFFFFF;
             border: 1px solid #E2E8F0;
             border-left: 4px solid #0F766E;
-            padding: 14px 16px;
+            padding: 12px 14px;
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
         }
         div[data-testid="stMetric"] label {
             color: #475569 !important;
             font-weight: 600 !important;
-            font-size: 0.85rem !important;
+            font-size: 0.82rem !important;
         }
         div[data-testid="stMetricValue"] {
             color: #0F172A !important;
@@ -84,7 +222,7 @@ st.markdown(
                 padding: 18px 24px; border-radius: 10px; color: white; margin-bottom: 18px;">
         <h2 style="margin: 0; color: white; font-size: 1.65rem;">🌿 DINPP Live MEL & Donor Dashboard</h2>
         <p style="margin: 4px 0 0 0; color: #CCFBF1; font-size: 0.92rem;">
-            Real-time multi-form overview, District & Ward coverage, cross-form linkage, and data quality monitoring (Smap Live API)
+            Real-time multi-form overview, District, Municipality & Ward coverage, cross-form linkage, and QA monitoring (Smap Live API)
         </p>
     </div>
     """,
@@ -189,7 +327,7 @@ if not active_forms:
 
 
 # ==============================================================================
-# 2. METADATA, GEOGRAPHY & CHART HELPERS
+# 2. METADATA, GEOGRAPHY DECODING & CHART HELPERS
 # ==============================================================================
 def find_col(df, candidates, exact_only=False):
     lower_map = {c.lower().strip(): c for c in df.columns}
@@ -235,28 +373,47 @@ def get_duration_minutes(df):
     return (e - s).dt.total_seconds() / 60.0
 
 
-def clean_district_value(val):
+def normalize_code_str(val):
     if pd.isna(val):
         return None
     s = str(val).strip()
     if not s or s.lower() in {"nan", "none", "null", "na", "n/a"}:
         return None
-    s = s.replace("_", " ")
+    # Strip trailing .0 from float-parsed codes (e.g. "403.0" -> "403")
+    s = re.sub(r"\.0+$", "", s)
+    return s
+
+
+def clean_district_value(val):
+    code = normalize_code_str(val)
+    if code is None:
+        return None
+    if code in DISTRICT_CODE_MAP:
+        return DISTRICT_CODE_MAP[code]
+    s = code.replace("_", " ")
+    s = re.sub(r"\s+", " ", s).strip()
+    return s.title()
+
+
+def clean_municipality_value(val):
+    code = normalize_code_str(val)
+    if code is None:
+        return None
+    if code in MUNICIPALITY_CODE_MAP:
+        return MUNICIPALITY_CODE_MAP[code]
+    s = code.replace("_", " ")
     s = re.sub(r"\s+", " ", s).strip()
     return s.title()
 
 
 def clean_ward_value(val):
-    if pd.isna(val):
+    code = normalize_code_str(val)
+    if code is None:
         return None
-    s = str(val).strip()
-    if not s or s.lower() in {"nan", "none", "null", "na", "n/a"}:
-        return None
-    # Match numeric ward or "Ward 1" / "ward_02" / "1.0"
-    m = re.match(r"^(?:ward\s*[-_#:]?\s*)?0*(\d+)(?:\.0+)?$", s, flags=re.IGNORECASE)
+    m = re.match(r"^(?:ward\s*[-_#:]?\s*)?0*(\d+)$", code, flags=re.IGNORECASE)
     if m:
         return f"Ward {int(m.group(1))}"
-    return s.replace("_", " ").strip().title()
+    return code.replace("_", " ").strip().title()
 
 
 def ward_sort_key(ward_label):
@@ -347,7 +504,7 @@ def plot_osm_map(geo_df, color_col, hover_cols, title):
 
 
 # ==============================================================================
-# 3. LOAD ALL ACTIVE FORMS ONCE & AUTO-DETECT DISTRICT / WARD COLUMNS
+# 3. LOAD ALL ACTIVE FORMS & AUTO-DETECT DISTRICT / MUNICIPALITY / WARD COLUMNS
 # ==============================================================================
 datasets = {}
 load_errors = {}
@@ -370,30 +527,42 @@ if not datasets:
     st.error("None of the selected forms could be loaded.")
     st.stop()
 
-# Sidebar: District & Ward Column Mapping (Auto-detected with manual override)
+# Sidebar: District, Municipality & Ward Column Mapping (Auto-detected with manual override)
 geo_col_map = {}
 with st.sidebar:
-    with st.expander("📍 District & Ward Columns", expanded=False):
+    with st.expander("📍 District, Municipality & Ward Columns", expanded=False):
         st.caption("Auto-detected per form. Adjust if a form uses a custom column name.")
         for title, df_tmp in datasets.items():
             if df_tmp.empty:
-                geo_col_map[title] = {"district": None, "ward": None}
+                geo_col_map[title] = {"district": None, "municipality": None, "ward": None}
                 continue
 
             cols = ["(None)"] + list(df_tmp.columns)
             auto_dist = find_col(df_tmp, ["district", "dist", "district_name", "jilla"])
+            auto_mun = find_col(df_tmp, ["municipality", "mun", "palika", "local_level", "gaupalika", "nagarpalika"])
             auto_ward = find_col(df_tmp, ["ward", "ward_no", "ward_number", "ward_num", "wada"])
 
             st.markdown(f"**{title}**")
             d_idx = cols.index(auto_dist) if auto_dist in cols else 0
+            m_idx = cols.index(auto_mun) if auto_mun in cols else 0
             w_idx = cols.index(auto_ward) if auto_ward in cols else 0
 
             sel_d = st.selectbox("District column", cols, index=d_idx, key=f"dist_col_{title}")
+            sel_m = st.selectbox("Municipality column", cols, index=m_idx, key=f"mun_col_{title}")
             sel_w = st.selectbox("Ward column", cols, index=w_idx, key=f"ward_col_{title}")
             geo_col_map[title] = {
                 "district": None if sel_d == "(None)" else sel_d,
+                "municipality": None if sel_m == "(None)" else sel_m,
                 "ward": None if sel_w == "(None)" else sel_w,
             }
+
+            # Decode detected District & Municipality codes in datasets for consistent display across all tabs
+            if geo_col_map[title]["district"]:
+                dc = geo_col_map[title]["district"]
+                df_tmp[dc] = df_tmp[dc].map(clean_district_value).fillna(df_tmp[dc])
+            if geo_col_map[title]["municipality"]:
+                mc = geo_col_map[title]["municipality"]
+                df_tmp[mc] = df_tmp[mc].map(clean_municipality_value).fillna(df_tmp[mc])
 
 
 # ==============================================================================
@@ -413,43 +582,60 @@ tab_glance, tab_link, tab_qa, tab_deep = st.tabs([
 with tab_glance:
     now_npt = pd.Timestamp.now(tz=NEPAL_TZ).tz_localize(None)
 
-    # Collect all available cleaned districts for the global district filter
+    # Collect all available Districts and District->Municipality pairs for cascading filters
     all_districts_found = set()
+    all_mun_pairs = set()
     for title, df_raw in datasets.items():
+        if df_raw.empty:
+            continue
         d_col = geo_col_map[title]["district"]
-        if d_col and not df_raw.empty:
-            cleaned = df_raw[d_col].map(clean_district_value).dropna().unique()
-            all_districts_found.update(cleaned)
+        m_col = geo_col_map[title]["municipality"]
+        d_vals = df_raw[d_col].map(clean_district_value) if d_col else pd.Series(None, index=df_raw.index, dtype="object")
+        m_vals = df_raw[m_col].map(clean_municipality_value) if m_col else pd.Series(None, index=df_raw.index, dtype="object")
+        all_districts_found.update(d_vals.dropna().unique())
+        for d_v, m_v in zip(d_vals, m_vals):
+            if m_v is not None:
+                all_mun_pairs.add((d_v, m_v))
+
     all_districts_sorted = sorted(all_districts_found)
 
-    # Top Global Filter Bar
-    gf1, gf2, gf3 = st.columns([1.3, 1.5, 1.5])
+    # Top Global Filter Bar: Time Window | District | Municipality
+    gf1, gf2, gf3 = st.columns([1.1, 1.4, 1.6])
     with gf1:
         date_preset = st.selectbox(
             "📅 Time Window",
             ["All Time", "Last 7 Days", "Last 30 Days", "Last 90 Days", "Custom Range"],
         )
-    custom_start, custom_end = None, None
-    if date_preset == "Custom Range":
-        with gf2:
-            d_range = st.date_input(
-                "Select date range",
-                value=(now_npt.date() - pd.Timedelta(days=30), now_npt.date()),
-            )
-            if isinstance(d_range, tuple) and len(d_range) == 2:
-                custom_start = pd.Timestamp(d_range[0])
-                custom_end = pd.Timestamp(d_range[1]) + pd.Timedelta(days=1) - pd.Timedelta(seconds=1)
-        dist_filter_col = gf3
-    else:
-        dist_filter_col = gf2
-
-    with dist_filter_col:
+    with gf2:
         selected_districts = st.multiselect(
-            "📍 Filter by District (All by default)",
+            "📍 Filter by District",
             options=all_districts_sorted,
             default=[],
             placeholder="All Districts",
         )
+
+    if selected_districts:
+        mun_options = sorted({m for d, m in all_mun_pairs if d in selected_districts})
+    else:
+        mun_options = sorted({m for _, m in all_mun_pairs})
+
+    with gf3:
+        selected_municipalities = st.multiselect(
+            "🏛️ Filter by Municipality",
+            options=mun_options,
+            default=[],
+            placeholder="All Municipalities",
+        )
+
+    custom_start, custom_end = None, None
+    if date_preset == "Custom Range":
+        d_range = st.date_input(
+            "Select custom start and end date",
+            value=(now_npt.date() - pd.Timedelta(days=30), now_npt.date()),
+        )
+        if isinstance(d_range, tuple) and len(d_range) == 2:
+            custom_start = pd.Timestamp(d_range[0])
+            custom_end = pd.Timestamp(d_range[1]) + pd.Timedelta(days=1) - pd.Timedelta(seconds=1)
 
     cutoff_7d = now_npt - pd.Timedelta(days=7)
     cutoff_14d = now_npt - pd.Timedelta(days=14)
@@ -461,6 +647,7 @@ with tab_glance:
     summary_rows = []
     all_active_users = set()
     filtered_districts_set = set()
+    filtered_muns_set = set()
     filtered_wards_set = set()
     latest_overall = None
     total_all_time = 0
@@ -475,6 +662,7 @@ with tab_glance:
                 "All-Time Total": 0,
                 "Last 7 Days": 0,
                 "Districts": 0,
+                "Municipalities": 0,
                 "Wards": 0,
                 "Active Enumerators": 0,
                 "With GPS (%)": "0%",
@@ -487,11 +675,14 @@ with tab_glance:
         gps_df_raw = extract_gps(df_raw)
 
         d_col = geo_col_map[title]["district"]
+        m_col = geo_col_map[title]["municipality"]
         w_col = geo_col_map[title]["ward"]
+
         dist_series = df_raw[d_col].map(clean_district_value) if d_col else pd.Series(None, index=df_raw.index, dtype="object")
+        mun_series = df_raw[m_col].map(clean_municipality_value) if m_col else pd.Series(None, index=df_raw.index, dtype="object")
         ward_series = df_raw[w_col].map(clean_ward_value) if w_col else pd.Series(None, index=df_raw.index, dtype="object")
 
-        # Apply Time + District Global Filter
+        # Apply Time + District + Municipality Global Filters
         mask = pd.Series(True, index=df_raw.index)
         if date_preset == "Last 7 Days":
             mask &= dt_series >= cutoff_7d
@@ -504,11 +695,14 @@ with tab_glance:
 
         if selected_districts:
             mask &= dist_series.isin(selected_districts)
+        if selected_municipalities:
+            mask &= mun_series.isin(selected_municipalities)
 
         df_filt = df_raw[mask].copy()
         dt_filt = dt_series[mask]
         user_filt = user_series[mask]
         dist_filt = dist_series[mask]
+        mun_filt = mun_series[mask]
         ward_filt = ward_series[mask]
 
         # Counts
@@ -529,18 +723,25 @@ with tab_glance:
         all_active_users.update(users_clean)
 
         form_dists = set(dist_filt.dropna().unique())
-        form_wards_pairs = set(
-            zip(dist_filt.fillna("Unspecified"), ward_filt.dropna())
+        form_muns = set(mun_filt.dropna().unique())
+        form_wards_keys = set(
+            zip(
+                dist_filt.fillna("Unspecified"),
+                mun_filt.fillna("Unspecified"),
+                ward_filt.dropna(),
+            )
         )
         filtered_districts_set.update(form_dists)
-        filtered_wards_set.update(form_wards_pairs)
+        filtered_muns_set.update(form_muns)
+        filtered_wards_set.update(form_wards_keys)
 
-        # Save District + Ward records for multi-form charts
+        # Save Geographic records for multi-form charts
         if not df_filt.empty:
             geo_records.append(
                 pd.DataFrame({
                     "Form": title,
                     "District": dist_filt.fillna("Unspecified"),
+                    "Municipality": mun_filt.fillna("Unspecified"),
                     "Ward": ward_filt.fillna("Unspecified"),
                 })
             )
@@ -551,6 +752,7 @@ with tab_glance:
         if not gps_in_filt.empty:
             gps_in_filt["Form"] = title
             gps_in_filt["District"] = dist_filt.loc[gps_in_filt.index].fillna("N/A").values
+            gps_in_filt["Municipality"] = mun_filt.loc[gps_in_filt.index].fillna("N/A").values
             gps_in_filt["Ward"] = ward_filt.loc[gps_in_filt.index].fillna("N/A").values
             gps_in_filt["Enumerator"] = user_filt.loc[gps_in_filt.index].values
             gps_in_filt["Submitted"] = dt_filt.loc[gps_in_filt.index].dt.strftime("%Y-%m-%d %H:%M").fillna("N/A").values
@@ -565,7 +767,8 @@ with tab_glance:
             "All-Time Total": len(df_raw),
             "Last 7 Days": cnt_7d,
             "Districts": len(form_dists),
-            "Wards": len(form_wards_pairs),
+            "Municipalities": len(form_muns),
+            "Wards": len(form_wards_keys),
             "Active Enumerators": len(users_clean),
             "With GPS (%)": f"{gps_pct:.0f}%",
             "Latest Submission (NPT)": form_latest.strftime("%Y-%m-%d %H:%M") if pd.notna(form_latest) else "N/A",
@@ -574,21 +777,22 @@ with tab_glance:
     summary_df = pd.DataFrame(summary_rows)
     filtered_total = int(summary_df["Records (Filtered)"].sum())
 
-    # 5 Executive KPI Cards
-    k1, k2, k3, k4, k5 = st.columns(5)
+    # 6 Executive KPI Cards (Municipality KPI right beside District!)
+    k1, k2, k3, k4, k5, k6 = st.columns(6)
     k1.metric(
-        f"Submissions ({date_preset})",
+        f"Submissions",
         f"{filtered_total:,}",
-        delta=f"{total_all_time:,} all-time" if (date_preset != "All Time" or selected_districts) else None,
+        delta=f"{total_all_time:,} all-time" if (date_preset != "All Time" or selected_districts or selected_municipalities) else None,
     )
     delta_7d = total_last_7d - total_prev_7d
-    k2.metric("Last 7 Days (All Forms)", f"{total_last_7d:,}", delta=f"{delta_7d:+d} vs prior 7d")
-    k3.metric("Districts Reached", len(filtered_districts_set))
-    k4.metric("Wards Covered", len(filtered_wards_set))
-    k5.metric(
-        "Latest Data Received",
+    k2.metric("Last 7 Days", f"{total_last_7d:,}", delta=f"{delta_7d:+d} vs prior 7d")
+    k3.metric("Districts", len(filtered_districts_set))
+    k4.metric("Municipalities", len(filtered_muns_set))
+    k5.metric("Wards", len(filtered_wards_set))
+    k6.metric(
+        "Latest Upload",
         latest_overall.strftime("%d %b %Y") if latest_overall is not None else "N/A",
-        delta=f"{len(all_active_users)} active enumerators",
+        delta=f"{len(all_active_users)} enumerators",
         delta_color="off",
     )
 
@@ -596,7 +800,7 @@ with tab_glance:
     latest_str = latest_overall.strftime("%d %b %Y, %H:%M NPT") if latest_overall is not None else "N/A"
     top_form_row = summary_df.sort_values("Records (Filtered)", ascending=False).iloc[0]
     dist_phrase = (
-        f"across {len(filtered_districts_set)} district(s) and {len(filtered_wards_set)} ward(s)"
+        f"across {len(filtered_districts_set)} district(s), {len(filtered_muns_set)} municipality(ies), and {len(filtered_wards_set)} ward(s)"
         if filtered_districts_set
         else f"across {len(datasets)} active forms"
     )
@@ -611,20 +815,21 @@ with tab_glance:
         st.text_area("Copy and paste into email / Slack / Teams:", value=brief_text, height=78, label_visibility="collapsed")
 
     # --------------------------------------------------------------------------
-    # SECTION A: DISTRICT & WARD COVERAGE ACROSS ALL FORMS (SUPERVISOR REQUEST)
+    # SECTION A: DISTRICT, MUNICIPALITY & WARD COVERAGE ACROSS ALL FORMS
     # --------------------------------------------------------------------------
-    st.markdown('<div class="section-header">📍 Geographic Coverage: District & Ward Breakdown (All Forms)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">📍 Geographic Coverage: District, Municipality & Ward Breakdown</div>', unsafe_allow_html=True)
 
     geo_all_df = pd.concat(geo_records, ignore_index=True) if geo_records else pd.DataFrame()
     geo_valid_dist = geo_all_df[geo_all_df["District"] != "Unspecified"] if not geo_all_df.empty else pd.DataFrame()
 
     district_matrix = pd.DataFrame()
+    mun_summary_df = pd.DataFrame()
     ward_summary_df = pd.DataFrame()
 
     if geo_valid_dist.empty:
         st.info(
-            "No District values detected yet. Open **📍 District & Ward Columns** in the sidebar to map "
-            "each form's District and Ward column names."
+            "No District values detected yet. Open **📍 District, Municipality & Ward Columns** in the sidebar to map "
+            "each form's location columns."
         )
     else:
         # Row 1: District-Wise Stacked Bar + Interactive Hierarchy (Sunburst / Treemap)
@@ -647,7 +852,6 @@ with tab_glance:
                 category_orders={"District": dist_totals.index.tolist()},
                 title="District-Wise Submissions Across All Forms",
             )
-            # Add total annotations at the end of stacked bars
             for dist_name, tot_val in dist_totals.items():
                 fig_dist.add_annotation(
                     x=tot_val,
@@ -660,14 +864,15 @@ with tab_glance:
             fig_dist = style_fig(fig_dist, height=430)
             fig_dist.update_layout(
                 legend=dict(orientation="h", y=-0.22, title=None),
-                xaxis=dict(range=[0, dist_totals.max() * 1.14]),
+                xaxis=dict(range=[0, dist_totals.max() * 1.15]),
             )
             st.plotly_chart(fig_dist, use_container_width=True)
 
         with dr2:
             hier_df = geo_valid_dist.copy()
+            hier_df["Municipality"] = hier_df["Municipality"].replace("Unspecified", "Municipality N/A")
             hier_df["Ward"] = hier_df["Ward"].replace("Unspecified", "Ward N/A")
-            hier_counts = hier_df.groupby(["District", "Ward", "Form"]).size().reset_index(name="Submissions")
+            hier_counts = hier_df.groupby(["District", "Municipality", "Ward", "Form"]).size().reset_index(name="Submissions")
 
             hier_mode = st.radio(
                 "Geographic Hierarchy View",
@@ -678,31 +883,81 @@ with tab_glance:
             if hier_mode.startswith("Sunburst"):
                 fig_hier = px.sunburst(
                     hier_counts,
-                    path=["District", "Ward", "Form"],
+                    path=["District", "Municipality", "Ward", "Form"],
                     values="Submissions",
                     color="District",
                     color_discrete_sequence=MEL_PALETTE,
-                    title="Interactive Drill-Down: District → Ward → Form",
+                    title="Interactive Drill-Down: District → Municipality → Ward → Form",
                 )
             else:
                 fig_hier = px.treemap(
                     hier_counts,
-                    path=["District", "Ward", "Form"],
+                    path=["District", "Municipality", "Ward", "Form"],
                     values="Submissions",
                     color="District",
                     color_discrete_sequence=MEL_PALETTE,
-                    title="Proportional Coverage: District → Ward → Form",
+                    title="Proportional Coverage: District → Municipality → Ward → Form",
                 )
             fig_hier = style_fig(fig_hier, height=390)
             st.plotly_chart(fig_hier, use_container_width=True)
 
-        # Row 2: Ward-Level Bar Chart + District × Form Matrix Table
-        wr1, wr2 = st.columns([1.25, 1])
-
+        # Row 2: Municipality-Wise Breakdown + Ward-Level Breakdown
+        mr1, mr2 = st.columns([1.15, 1.15])
+        mun_valid = geo_valid_dist[geo_valid_dist["Municipality"] != "Unspecified"].copy()
         ward_valid = geo_valid_dist[geo_valid_dist["Ward"] != "Unspecified"].copy()
-        with wr1:
+
+        with mr1:
+            if mun_valid.empty:
+                st.info("No Municipality values detected. Map each form's Municipality column in the sidebar.")
+            else:
+                mun_counts = mun_valid.groupby(["District", "Municipality", "Form"]).size().reset_index(name="Submissions")
+                mun_totals = (
+                    mun_counts.groupby("Municipality")["Submissions"]
+                    .sum()
+                    .sort_values(ascending=True)
+                )
+                fig_mun = px.bar(
+                    mun_counts,
+                    x="Submissions",
+                    y="Municipality",
+                    color="Form",
+                    orientation="h",
+                    color_discrete_sequence=MEL_PALETTE,
+                    category_orders={"Municipality": mun_totals.index.tolist()},
+                    hover_data=["District"],
+                    title=f"Municipality-Wise Submissions ({len(mun_totals)} Municipalities)",
+                )
+                for m_name, m_val in mun_totals.items():
+                    fig_mun.add_annotation(
+                        x=m_val,
+                        y=m_name,
+                        text=f" <b>{m_val:,}</b>",
+                        showarrow=False,
+                        xanchor="left",
+                        font=dict(size=10, color="#0F172A"),
+                    )
+                fig_mun = style_fig(fig_mun, height=max(410, min(680, len(mun_totals) * 28 + 140)))
+                fig_mun.update_layout(
+                    legend=dict(orientation="h", y=-0.18, title=None),
+                    yaxis_title=None,
+                    xaxis=dict(range=[0, mun_totals.max() * 1.16]),
+                )
+                st.plotly_chart(fig_mun, use_container_width=True)
+
+                mun_summary_df = (
+                    mun_valid.pivot_table(
+                        index=["District", "Municipality"],
+                        columns="Form",
+                        aggfunc="size",
+                        fill_value=0,
+                    )
+                    .assign(Total=lambda d: d.sum(axis=1))
+                    .reset_index()
+                )
+
+        with mr2:
             if ward_valid.empty:
-                st.info("No Ward values detected. Map each form's Ward column in the sidebar (**📍 District & Ward Columns**).")
+                st.info("No Ward values detected. Map each form's Ward column in the sidebar.")
             else:
                 ward_dist_opts = ["All Districts"] + sorted(ward_valid["District"].unique().tolist())
                 focus_dist = st.selectbox("🏘️ Focus Ward Breakdown on District:", ward_dist_opts)
@@ -712,7 +967,6 @@ with tab_glance:
                     w_plot_src = w_plot_src.copy()
                     w_plot_src["Ward_Label"] = w_plot_src["District"] + " — " + w_plot_src["Ward"]
                     ward_counts = w_plot_src.groupby(["District", "Ward", "Ward_Label", "Form"]).size().reset_index(name="Submissions")
-                    # Sort cleanly by District then numeric Ward
                     ward_order = (
                         ward_counts[["District", "Ward", "Ward_Label"]]
                         .drop_duplicates()
@@ -733,7 +987,6 @@ with tab_glance:
                     category_orders={x_col: ward_order},
                     title=f"Ward-Level Submissions ({focus_dist})",
                 )
-                # Total labels above stacked ward bars
                 w_tots = ward_counts.groupby(x_col)["Submissions"].sum()
                 for w_lbl, w_tot in w_tots.items():
                     fig_ward.add_annotation(
@@ -753,10 +1006,9 @@ with tab_glance:
                 )
                 st.plotly_chart(fig_ward, use_container_width=True)
 
-                # Prepare clean Ward summary table for Excel export
                 ward_summary_df = (
                     ward_valid.pivot_table(
-                        index=["District", "Ward"],
+                        index=["District", "Municipality", "Ward"],
                         columns="Form",
                         aggfunc="size",
                         fill_value=0,
@@ -765,26 +1017,36 @@ with tab_glance:
                     .reset_index()
                 )
 
-        with wr2:
-            st.markdown("**District × Form Count Matrix**")
-            district_matrix = pd.crosstab(
-                geo_valid_dist["District"],
-                geo_valid_dist["Form"],
-                margins=True,
-                margins_name="Total",
+        # Row 3: District × Form Count Matrix
+        st.markdown("**District × Form Count Matrix**")
+        district_matrix = pd.crosstab(
+            geo_valid_dist["District"],
+            geo_valid_dist["Form"],
+            margins=True,
+            margins_name="Total",
+        )
+        if not mun_valid.empty:
+            muns_per_dist = mun_valid.groupby("District")["Municipality"].nunique()
+            district_matrix.insert(
+                0,
+                "Municipalities",
+                [
+                    int(muns_per_dist.get(idx, 0)) if idx != "Total" else int(len(filtered_muns_set))
+                    for idx in district_matrix.index
+                ],
             )
-            # Add Wards Covered column per district
-            if not ward_valid.empty:
-                wards_per_dist = ward_valid.groupby("District")["Ward"].nunique()
-                district_matrix.insert(
-                    0,
-                    "Wards Covered",
-                    [
-                        int(wards_per_dist.get(idx, 0)) if idx != "Total" else int(len(filtered_wards_set))
-                        for idx in district_matrix.index
-                    ],
-                )
-            st.dataframe(district_matrix, use_container_width=True, height=390)
+        if not ward_valid.empty:
+            wards_per_dist = ward_valid.groupby("District")["Ward"].nunique()
+            insert_pos = 1 if "Municipalities" in district_matrix.columns else 0
+            district_matrix.insert(
+                insert_pos,
+                "Wards",
+                [
+                    int(wards_per_dist.get(idx, 0)) if idx != "Total" else int(len(filtered_wards_set))
+                    for idx in district_matrix.index
+                ],
+            )
+        st.dataframe(district_matrix, use_container_width=True)
 
     # --------------------------------------------------------------------------
     # SECTION B: COLLECTION TIMELINE & MULTI-FORM MAP
@@ -818,7 +1080,7 @@ with tab_glance:
                 plot_osm_map(
                     geo_all_pts,
                     color_col="Form",
-                    hover_cols=["Form", "District", "Ward", "Enumerator", "Submitted"],
+                    hover_cols=["Form", "District", "Municipality", "Ward", "Enumerator", "Submitted"],
                     title=f"Unified GPS Map Across All Forms ({len(geo_all_pts):,} points)",
                 ),
                 use_container_width=True,
@@ -846,6 +1108,8 @@ with tab_glance:
             summary_df.to_excel(writer, sheet_name="Form Summary", index=False)
             if not district_matrix.empty:
                 district_matrix.reset_index().to_excel(writer, sheet_name="District Breakdown", index=False)
+            if not mun_summary_df.empty:
+                mun_summary_df.to_excel(writer, sheet_name="Municipality Breakdown", index=False)
             if not ward_summary_df.empty:
                 ward_summary_df.to_excel(writer, sheet_name="Ward Breakdown", index=False)
             pd.DataFrame([{"Donor Brief": brief_text}]).to_excel(writer, sheet_name="Donor Brief", index=False)
@@ -865,7 +1129,7 @@ with tab_glance:
 with tab_link:
     st.subheader("🔗 Cross-Form Coverage & Follow-Up Tracker")
     st.caption(
-        "Compare any two forms using a shared ID or location column (e.g., Site ID, Farmer ID, Ward) "
+        "Compare any two forms using a shared ID or location column (e.g., Site ID, Farmer ID, Municipality, Ward) "
         "to spot records present in Form A that haven't appeared in Form B yet."
     )
 
@@ -1082,6 +1346,15 @@ with tab_deep:
     if df.empty:
         st.info("This form/subform currently has 0 submissions.")
         st.stop()
+
+    # Ensure subforms also decode District/Municipality codes if present
+    if chosen_subform is not None:
+        d_sub = find_col(df, ["district", "dist", "district_name", "jilla"])
+        m_sub = find_col(df, ["municipality", "mun", "palika", "local_level", "gaupalika", "nagarpalika"])
+        if d_sub:
+            df[d_sub] = df[d_sub].map(clean_district_value).fillna(df[d_sub])
+        if m_sub:
+            df[m_sub] = df[m_sub].map(clean_municipality_value).fillna(df[m_sub])
 
     with st.expander("🔎 Filter records before analyzing (optional)"):
         filter_col = st.selectbox("Filter by column", ["(None)"] + list(df.columns))
