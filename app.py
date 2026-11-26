@@ -379,7 +379,6 @@ def normalize_code_str(val):
     s = str(val).strip()
     if not s or s.lower() in {"nan", "none", "null", "na", "n/a"}:
         return None
-    # Strip trailing .0 from float-parsed codes (e.g. "403.0" -> "403")
     s = re.sub(r"\.0+$", "", s)
     return s
 
@@ -539,7 +538,9 @@ with st.sidebar:
 
             cols = ["(None)"] + list(df_tmp.columns)
             auto_dist = find_col(df_tmp, ["district", "dist", "district_name", "jilla"])
-            auto_mun = find_col(df_tmp, ["municipality", "mun", "palika", "local_level", "gaupalika", "nagarpalika"])
+            auto_mun = find_col(df_tmp, ["municipality", "mun"], exact_only=True) or find_col(
+                df_tmp, ["municipality", "palika", "local_level", "gaupalika", "nagarpalika", "mun_name", "mun_code"]
+            )
             auto_ward = find_col(df_tmp, ["ward", "ward_no", "ward_number", "ward_num", "wada"])
 
             st.markdown(f"**{title}**")
@@ -582,7 +583,7 @@ tab_glance, tab_link, tab_qa, tab_deep = st.tabs([
 with tab_glance:
     now_npt = pd.Timestamp.now(tz=NEPAL_TZ).tz_localize(None)
 
-    # Collect all available Districts and District->Municipality pairs for cascading filters
+    # Collect all available Districts and District->Municipality pairs safely
     all_districts_found = set()
     all_mun_pairs = set()
     for title, df_raw in datasets.items():
@@ -592,10 +593,11 @@ with tab_glance:
         m_col = geo_col_map[title]["municipality"]
         d_vals = df_raw[d_col].map(clean_district_value) if d_col else pd.Series(None, index=df_raw.index, dtype="object")
         m_vals = df_raw[m_col].map(clean_municipality_value) if m_col else pd.Series(None, index=df_raw.index, dtype="object")
-        all_districts_found.update(d_vals.dropna().unique())
+        all_districts_found.update(d_vals.dropna().astype(str).unique())
         for d_v, m_v in zip(d_vals, m_vals):
-            if m_v is not None:
-                all_mun_pairs.add((d_v, m_v))
+            if pd.notna(m_v) and str(m_v).strip():
+                d_clean = str(d_v) if pd.notna(d_v) and str(d_v).strip() else None
+                all_mun_pairs.add((d_clean, str(m_v)))
 
     all_districts_sorted = sorted(all_districts_found)
 
@@ -722,13 +724,14 @@ with tab_glance:
         users_clean = set(user_filt[user_filt != "Unknown"].unique())
         all_active_users.update(users_clean)
 
-        form_dists = set(dist_filt.dropna().unique())
-        form_muns = set(mun_filt.dropna().unique())
+        form_dists = set(dist_filt.dropna().astype(str).unique())
+        form_muns = set(mun_filt.dropna().astype(str).unique())
+        w_valid_idx = ward_filt.dropna().index
         form_wards_keys = set(
             zip(
-                dist_filt.fillna("Unspecified"),
-                mun_filt.fillna("Unspecified"),
-                ward_filt.dropna(),
+                dist_filt.loc[w_valid_idx].fillna("Unspecified").astype(str),
+                mun_filt.loc[w_valid_idx].fillna("Unspecified").astype(str),
+                ward_filt.loc[w_valid_idx].astype(str),
             )
         )
         filtered_districts_set.update(form_dists)
@@ -740,9 +743,9 @@ with tab_glance:
             geo_records.append(
                 pd.DataFrame({
                     "Form": title,
-                    "District": dist_filt.fillna("Unspecified"),
-                    "Municipality": mun_filt.fillna("Unspecified"),
-                    "Ward": ward_filt.fillna("Unspecified"),
+                    "District": dist_filt.fillna("Unspecified").astype(str),
+                    "Municipality": mun_filt.fillna("Unspecified").astype(str),
+                    "Ward": ward_filt.fillna("Unspecified").astype(str),
                 })
             )
 
@@ -751,9 +754,9 @@ with tab_glance:
 
         if not gps_in_filt.empty:
             gps_in_filt["Form"] = title
-            gps_in_filt["District"] = dist_filt.loc[gps_in_filt.index].fillna("N/A").values
-            gps_in_filt["Municipality"] = mun_filt.loc[gps_in_filt.index].fillna("N/A").values
-            gps_in_filt["Ward"] = ward_filt.loc[gps_in_filt.index].fillna("N/A").values
+            gps_in_filt["District"] = dist_filt.loc[gps_in_filt.index].fillna("N/A").astype(str).values
+            gps_in_filt["Municipality"] = mun_filt.loc[gps_in_filt.index].fillna("N/A").astype(str).values
+            gps_in_filt["Ward"] = ward_filt.loc[gps_in_filt.index].fillna("N/A").astype(str).values
             gps_in_filt["Enumerator"] = user_filt.loc[gps_in_filt.index].values
             gps_in_filt["Submitted"] = dt_filt.loc[gps_in_filt.index].dt.strftime("%Y-%m-%d %H:%M").fillna("N/A").values
             gps_frames.append(gps_in_filt)
@@ -780,7 +783,7 @@ with tab_glance:
     # 6 Executive KPI Cards (Municipality KPI right beside District!)
     k1, k2, k3, k4, k5, k6 = st.columns(6)
     k1.metric(
-        f"Submissions",
+        "Submissions",
         f"{filtered_total:,}",
         delta=f"{total_all_time:,} all-time" if (date_preset != "All Time" or selected_districts or selected_municipalities) else None,
     )
@@ -967,11 +970,12 @@ with tab_glance:
                     w_plot_src = w_plot_src.copy()
                     w_plot_src["Ward_Label"] = w_plot_src["District"] + " — " + w_plot_src["Ward"]
                     ward_counts = w_plot_src.groupby(["District", "Ward", "Ward_Label", "Form"]).size().reset_index(name="Submissions")
-                    ward_order = (
-                        ward_counts[["District", "Ward", "Ward_Label"]]
-                        .drop_duplicates()
-                        .sort_values(by=["District", "Ward"], key=lambda s: s.map(ward_sort_key) if s.name == "Ward" else s)
-                    )["Ward_Label"].tolist()
+                    ward_pairs = ward_counts[["District", "Ward", "Ward_Label"]].drop_duplicates().to_dict("records")
+                    ward_pairs_sorted = sorted(
+                        ward_pairs,
+                        key=lambda r: (str(r["District"]), ward_sort_key(r["Ward"])),
+                    )
+                    ward_order = [r["Ward_Label"] for r in ward_pairs_sorted]
                     x_col = "Ward_Label"
                 else:
                     ward_counts = w_plot_src.groupby(["Ward", "Form"]).size().reset_index(name="Submissions")
@@ -1350,7 +1354,9 @@ with tab_deep:
     # Ensure subforms also decode District/Municipality codes if present
     if chosen_subform is not None:
         d_sub = find_col(df, ["district", "dist", "district_name", "jilla"])
-        m_sub = find_col(df, ["municipality", "mun", "palika", "local_level", "gaupalika", "nagarpalika"])
+        m_sub = find_col(df, ["municipality", "mun"], exact_only=True) or find_col(
+            df, ["municipality", "palika", "local_level", "gaupalika", "nagarpalika", "mun_name", "mun_code"]
+        )
         if d_sub:
             df[d_sub] = df[d_sub].map(clean_district_value).fillna(df[d_sub])
         if m_sub:
